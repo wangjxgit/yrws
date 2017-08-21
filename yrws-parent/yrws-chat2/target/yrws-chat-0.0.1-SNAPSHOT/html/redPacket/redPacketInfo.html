@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>粤人无数</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../../css/reset.css">
+	<link rel="stylesheet" href="../../css/pub.css">
+	<link rel="stylesheet" href="../../css/redPacketInfo.css">
+	<script type="text/javascript" src="../../js/suit.js"></script>
+	<script type="text/javascript" src="../../js/jquery-1.8.3.min.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="redPacket">
+			<img src="../../images/抢到钱弹窗720x1280_042543.png" alt="" id="close">
+			<img src="../../images/抢到钱弹窗720x1280_04533.png" alt="" id="logo">
+			<div id="logoName">必胜客</div>
+			<div id="having">
+				<div id="amount"><span>5.66</span>&nbsp;&nbsp;元</div>
+				<div id="deposit">已存入零钱，可直接消费</div>
+			</div>
+			<div id="without">慢一步，红包已抢完......</div>
+			<a href="./redPacketList.html">
+				<div id="examine">看看大家的手气&gt;</div>
+			</a>
+		</div>
+		<img src="../../images/bg_2@2x (2).png" alt="" id="masking">
+		<div id="header">
+			<a id="header_left" href="./redPacketMain.html"><img id="prev" src="../../images/prev.png"></img></a>			
+			红包详情
+		</div>
+		<div id="content">
+			<div id="banner"></div>
+			<div id="middle">
+				<h1>必胜客</h1>
+				<h2>欧式培根卷香肠披萨，特选西式香肠,别具匠心地卷上大片培根片， 烘烤后的培根鲜香四溢，浓香馥郁的口感带你畅想欧式美味.</h2>
+				<div id="btn">抢</div>
+				<div class="controll">
+					<img class="upvote" src="../../images/upvote.png" alt="">
+					<img class="reply" src="../../images/reply.png" alt="">
+				</div>
+			</div>
+			<div class="swiper-container">
+				<ul class="pagination">
+					<li class="swiper-pagination-custom myPagination onShow" id="bReply">评论（<var>1</var>）</li>
+					<li class="swiper-pagination-custom myPagination" id="bUpvote">点赞（<var>1</var>）</li>
+					<li class="swiper-pagination-custom myPagination" id="bRedPack">打赏（<var>1</var>）</li>
+				</ul>
+				<div class="swiper-wrapper">
+					<ul class="swiper-slide bReply">
+						<li id="reply1" class="replyChild">
+							<div class="replyImg"></div>
+							<div class="rightBox">
+								<div class="user_info">
+									<span class="user_name">我的名字</span>
+									<img src="../../images/girl.png" class="sex">
+								</div>
+								<div class="main_content">我就喜欢看这个</div>
+								<div class="main_info"><var>1</var>楼·<var>1</var>小时前</div>
+								<div class="controll">
+									<img class="upvote" src="../../images/upvote.png" alt="">
+									<img class="reply" src="../../images/reply.png" alt="">
+								</div>
+							</div>
+						</li>
+						<li id="reply2" class="replyChild">
+							<div class="replyImg"></div>
+							<div class="rightBox">
+								<div class="user_info">
+									<span class="user_name">我的名字</span>
+									<img src="../../images/girl.png" class="sex">
+								</div>
+								<div class="main_content">我就喜欢看这个</div>
+								<div class="main_info"><var>1</var>楼·<var>1</var>小时前</div>
+								<div class="controll">
+									<img class="upvote" src="../../images/upvote.png" alt="">
+									<img class="reply" src="../../images/reply.png" alt="">
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="swiper-slide bUpvote">
+
+					</ul>
+					<ul class="swiper-slide bRedPack">
+
+					</ul>
+				</div>
+			</div>
+			<div id="bottom">
+				<input id="replyText" type="text" value="发表评论">
+				<img src="../../images/tip.png" id="tip">
+			</div>
+		</div>
+	</div>
+	<script>
+	$('#btn').click(function(){
+		$('#redPacket').css('display','block');
+		$('#masking').css('display','block');
+	})
+	$('#close').click(function(){
+		$('#redPacket').css('display','none');
+		$('#masking').css('display','none');
+	})
+	var flag=324;
+	if (flag>0) {
+		$('#having').css('display','block')
+		$('#without').css('display','none')
+	} else{
+		$('#having').css('display','none')
+		$('#without').css('display','block')
+	};
+	
+		
+	</script>
+</body>
+</html>

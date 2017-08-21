@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	Hello Word!
+	#set($template="username")
+	$template
+	#set($templates="张三")
+	$template
+-------------------------<br/>
+	$set($template=$templates)
+</body>
+</html>

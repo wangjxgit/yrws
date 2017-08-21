@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrws.chat.dao.PublishMapper" >
+  <resultMap id="BaseResultMap" type="com.yrws.chat.entity.Publish" >
+    <id column="publish_id" property="publishId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="publish_title" property="publishTitle" jdbcType="VARCHAR" />
+    <result column="publish_comment" property="publishComment" jdbcType="VARCHAR" />
+    <result column="publish_img" property="publishImg" jdbcType="VARCHAR" />
+    <result column="publish_address" property="publishAddress" jdbcType="VARCHAR" />
+    <result column="publish_type" property="publishType" jdbcType="VARCHAR" />
+    <result column="publish_dianzan" property="publishDianzan" jdbcType="VARCHAR" />
+    <result column="publish_dashang" property="publishDashang" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    publish_id, username, publish_title, publish_comment, publish_img, publish_address, 
+    publish_type, publish_dianzan, publish_dashang, publish_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from publish
+    where publish_id = #{publishId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultType="com.yrws.chat.view.UserPublish" >
+    SELECT publish.publish_id publishId ,users.name name ,users.sex sex ,users.img userimg , publish.publish_date nowtime , publish.publish_img publishimg ,publish.publish_title title ,publish.publish_comment comment
+    FROM users LEFT JOIN publish ON users.name = publish.username
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from publish
+    where publish_id = #{publishId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yrws.chat.entity.Publish" >
+    insert into publish (publish_id, username, publish_title, 
+      publish_comment, publish_img, publish_address, 
+      publish_type, publish_dianzan, publish_dashang, 
+      publish_date)
+    values (#{publishId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{publishTitle,jdbcType=VARCHAR}, 
+      #{publishComment,jdbcType=VARCHAR}, #{publishImg,jdbcType=VARCHAR}, #{publishAddress,jdbcType=VARCHAR}, 
+      #{publishType,jdbcType=VARCHAR}, #{publishDianzan,jdbcType=VARCHAR}, #{publishDashang,jdbcType=VARCHAR}, 
+      #{publishDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yrws.chat.entity.Publish" >
+    insert into publish
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="publishId != null" >
+        publish_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="publishTitle != null" >
+        publish_title,
+      </if>
+      <if test="publishComment != null" >
+        publish_comment,
+      </if>
+      <if test="publishImg != null" >
+        publish_img,
+      </if>
+      <if test="publishAddress != null" >
+        publish_address,
+      </if>
+      <if test="publishType != null" >
+        publish_type,
+      </if>
+      <if test="publishDianzan != null" >
+        publish_dianzan,
+      </if>
+      <if test="publishDashang != null" >
+        publish_dashang,
+      </if>
+      <if test="publishDate != null" >
+        publish_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="publishId != null" >
+        #{publishId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTitle != null" >
+        #{publishTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publishComment != null" >
+        #{publishComment,jdbcType=VARCHAR},
+      </if>
+      <if test="publishImg != null" >
+        #{publishImg,jdbcType=VARCHAR},
+      </if>
+      <if test="publishAddress != null" >
+        #{publishAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="publishType != null" >
+        #{publishType,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDianzan != null" >
+        #{publishDianzan,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDashang != null" >
+        #{publishDashang,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yrws.chat.entity.Publish" >
+    update publish
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTitle != null" >
+        publish_title = #{publishTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publishComment != null" >
+        publish_comment = #{publishComment,jdbcType=VARCHAR},
+      </if>
+      <if test="publishImg != null" >
+        publish_img = #{publishImg,jdbcType=VARCHAR},
+      </if>
+      <if test="publishAddress != null" >
+        publish_address = #{publishAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="publishType != null" >
+        publish_type = #{publishType,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDianzan != null" >
+        publish_dianzan = #{publishDianzan,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDashang != null" >
+        publish_dashang = #{publishDashang,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        publish_date = #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where publish_id = #{publishId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yrws.chat.entity.Publish" >
+    update publish
+    set username = #{username,jdbcType=VARCHAR},
+      publish_title = #{publishTitle,jdbcType=VARCHAR},
+      publish_comment = #{publishComment,jdbcType=VARCHAR},
+      publish_img = #{publishImg,jdbcType=VARCHAR},
+      publish_address = #{publishAddress,jdbcType=VARCHAR},
+      publish_type = #{publishType,jdbcType=VARCHAR},
+      publish_dianzan = #{publishDianzan,jdbcType=VARCHAR},
+      publish_dashang = #{publishDashang,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=TIMESTAMP}
+    where publish_id = #{publishId,jdbcType=INTEGER}
+  </update>
+</mapper>
