@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrws.share.dao.PublishGoodMapper" >
+  <resultMap id="BaseResultMap" type="com.yrws.share.entity.PublishGood" >
+    <id column="good_id" property="goodId" jdbcType="INTEGER" />
+    <result column="username_good" property="usernameGood" jdbcType="VARCHAR" />
+    <result column="publish_id" property="publishId" jdbcType="INTEGER" />
+    <result column="discuss_id" property="discussId" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    good_id, username_good, publish_id, discuss_id
+  </sql>
+<!--   支鹏宇 -->
+<!-- 是否已赞 -->
+	<select id="selectIfGood" resultMap="BaseResultMap" parameterType="com.yrws.share.entity.PublishGood">
+	SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     publish_good
+    WHERE
+     publish_id = #{publishId,jdbcType=INTEGER} AND username_good = #{usernameGood,jdbcType=VARCHAR} and discuss_id is null
+	</select>
+<!--   点赞 -->
+  	<insert id="addGood" parameterType="com.yrws.share.entity.PublishGood" >
+    INSERT INTO
+     publish_good (username_good, publish_id)
+    VALUES
+     (#{usernameGood,jdbcType=VARCHAR}, #{publishId,jdbcType=INTEGER})
+  	</insert>
+<!--   取消点赞 -->
+	<delete id="deleteGood" parameterType="com.yrws.share.entity.PublishGood">
+	DELETE
+	 from publish_good
+    WHERE
+     username_good = #{usernameGood,jdbcType=VARCHAR} AND publish_id = #{publishId,jdbcType=INTEGER} and discuss_id is null
+	</delete>
+<!-- 点赞列表 -->
+	<select id="selectGood" resultMap="BaseResultMap" parameterType="com.yrws.share.entity.PublishGood">
+	SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     publish_good
+	</select>
+<!--   评论点赞 -->
+  	<insert id="addpGood" parameterType="com.yrws.share.entity.PublishGood" >
+    INSERT INTO
+     publish_good (username_good, publish_id, discuss_id)
+    VALUES
+     (#{usernameGood,jdbcType=VARCHAR}, #{publishId,jdbcType=INTEGER}, #{discussId,jdbcType=INTEGER})
+  	</insert>
+<!--   评论取消点赞 -->
+	<delete id="deletepGood" parameterType="com.yrws.share.entity.PublishGood">
+	DELETE
+	 from publish_good
+    WHERE
+     publish_id=#{publishId,jdbcType=INTEGER} AND username_good = #{usernameGood,jdbcType=VARCHAR} and discuss_id = #{discussId,jdbcType=INTEGER}
+	</delete>
+<!-- 发布评论页面点赞回显 -->
+ <select id="selectPubGood" resultMap="BaseResultMap" parameterType="com.yrws.share.entity.PublishGood" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     publish_good
+    WHERE
+     username_good = #{usernameGood,jdbcType=VARCHAR} AND publish_id = #{publishId,jdbcType=INTEGER} and discuss_id = #{discussId,jdbcType=INTEGER}
+  </select>
+
+
+  
+
+  
+  
+  
+  
+</mapper>

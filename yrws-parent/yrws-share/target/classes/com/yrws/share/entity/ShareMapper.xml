@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrws.share.dao.ShareMaper" >
+		<!-- //从表publish和表user中查询单个用户的分享 -->
+ 		<select id="selectAllByUserName" resultType="com.yrws.share.entity.Share" parameterType="map">
+    		SELECT name name,img img,sex sex,publish_date publishDate,publish_comment publishComment,publish_img publishImg,publish_id publishId 
+    		FROM user LEFT JOIN publish ON user.username = publish.username 
+    		WHERE publish_type = "notitle" AND publish.username = "user1" 
+    		LIMIT ${index},${size}
+    	</select>
+    	
+    	<!-- //从表publish和表user中查询所有用户的所有分享 -->
+ 		<select id="selectAll" resultType="com.yrws.share.entity.Share" parameterType="map">
+    		SELECT name name,img img,sex sex,publish_date publishDate,publish_comment publishComment,publish_img publishImg,publish_id publishId 
+    		FROM user LEFT JOIN publish ON user.username = publish.username 
+    		WHERE publish_type = "share" 
+    		LIMIT ${index},${size}
+    	</select>
+    	
+    	
+    	<!-- 添加 -->
+		<insert id="addPubLishShare" parameterType="com.yrws.share.entity.Publish">
+		INSERT INTO publish (publish_id, username, publish_title, 
+	      publish_comment, publish_img, publish_address, 
+	      publish_type, publish_dianzan, publish_dashang, 
+	      publish_date)
+	    VALUES (#{publishId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{publishTitle,jdbcType=VARCHAR}, 
+	      #{publishComment,jdbcType=VARCHAR}, #{publishImg,jdbcType=VARCHAR}, #{publishAddress,jdbcType=VARCHAR}, 
+	      #{publishType,jdbcType=VARCHAR}, #{publishDianzan,jdbcType=VARCHAR}, #{publishDashang,jdbcType=VARCHAR}, 
+	      #{publishDate,jdbcType=TIMESTAMP})
+	  </insert>
+    	
+    	
+    	<!-- //从表publish查询数据条数-->
+    	<select id="count" resultType="Integer" >
+    		SELECT count(*)	FROM publish
+    	</select>
+    	
+    	<!-- //从表publish_good中查询用户的点赞记录 -->
+    	<select id="selectPoint" resultType="com.yrws.share.entity.PublishGood" parameterType="String">
+    		SELECT publish_id publishId FROM publish_good WHERE username_good = "user1"
+    	</select>
+    	
+		<!-- //向表publish_good中添加用户的点赞记录  -->
+		<insert id="addGood">
+			INSERT INTO publish_good (username_good,publish_id,discuss_id) VALUES (#{user2,jdbcType=VARCHAR},#{id,jdbcType=INTEGER},"0")
+		</insert>
+		
+		<!-- //从表publish_good查询数据条数-->
+    	<select id="countPoint" resultType="Integer" parameterType="Integer" >
+    		SELECT count(*)	FROM publish_good WHERE publish_id = #{id}
+    	</select>
+    	
+    	<!-- //从表publish_good删除数据条数-->
+    	<delete id="deletePoint" parameterType="Integer">
+    		DELETE FROM publish_good WHERE publish_id = #{id}
+    	</delete>
+    	
+</mapper>

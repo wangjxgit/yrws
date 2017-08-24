@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrws.chat.dao.PublishGoodMapper" >
+  <resultMap id="BaseResultMap" type="com.yrws.chat.entity.PublishGood" >
+    <id column="good_id" property="goodId" jdbcType="INTEGER" />
+    <result column="username_good" property="usernameGood" jdbcType="VARCHAR" />
+    <result column="publish_id" property="publishId" jdbcType="INTEGER" />
+    <result column="discuss_id" property="discussId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    good_id, username_good, publish_id, discuss_id
+  </sql>
+  
+<!--   支鹏宇 -->
+<!-- 是否已赞 -->
+	<select id="selectIfGood" resultMap="BaseResultMap" parameterType="com.yrws.chat.entity.PublishGood">
+	SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     publish_good
+    WHERE
+     publish_id = #{publishId,jdbcType=INTEGER} AND username_good = #{usernameGood,jdbcType=VARCHAR} and discuss_id is null
+	</select>
+<!--   点赞 -->
+  	<insert id="addGood" parameterType="com.yrws.chat.entity.PublishGood" >
+    insert into publish_good (username_good, publish_id)
+    values (#{usernameGood,jdbcType=VARCHAR}, #{publishId,jdbcType=INTEGER})
+  	</insert>
+<!--   取消点赞 -->
+	<delete id="deleteGood" parameterType="com.yrws.chat.entity.PublishGood">
+	DELETE
+	 from publish_good
+    WHERE username_good = #{usernameGood,jdbcType=VARCHAR} AND publish_id = #{publishId,jdbcType=INTEGER} and discuss_id is null
+	</delete>
+<!-- 点赞列表 -->
+	<select id="selectGood" resultMap="BaseResultMap" parameterType="com.yrws.chat.entity.PublishGood">
+	SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     publish_good
+	</select>
+<!--   评论点赞 -->
+  	<insert id="addpGood" parameterType="com.yrws.chat.entity.PublishGood" >
+    INSERT INTO
+     publish_good (username_good, publish_id, discuss_id)
+    VALUES
+     (#{usernameGood,jdbcType=VARCHAR}, #{publishId,jdbcType=INTEGER}, #{discussId,jdbcType=INTEGER})
+  	</insert>
+<!--   评论取消点赞 -->
+	<delete id="deletepGood" parameterType="com.yrws.chat.entity.PublishGood">
+	DELETE
+	 from publish_good
+    WHERE
+     publish_id=#{publishId,jdbcType=INTEGER} AND username_good = #{usernameGood,jdbcType=VARCHAR} and discuss_id = #{discussId,jdbcType=INTEGER}
+	</delete>
+<!-- 发布评论页面点赞回显 -->
+ <select id="selectPubGood" resultMap="BaseResultMap" parameterType="com.yrws.chat.entity.PublishGood" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     publish_good
+    WHERE username_good = #{usernameGood,jdbcType=VARCHAR} AND publish_id = #{publishId,jdbcType=INTEGER} and discuss_id = #{discussId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM publish_good
+    WHERE good_id = #{goodId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM publish_good
+    WHERE username_good = #{usernameGood,jdbcType=VARCHAR}
+  </select>
+  <select id="selectGoodCount" resultType="com.yrws.chat.entity.PublishGood" parameterType="java.lang.Integer" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM publish_good
+    WHERE publish_id = #{publishId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    DELETE FROM publish_good
+    WHERE good_id = #{goodId,jdbcType=INTEGER}
+  </delete>
+   <delete id="deleteByPrimaryId" parameterType="com.yrws.chat.entity.PublishGood" >
+    DELETE FROM publish_good
+    WHERE username_good=#{usernameGood,jdbcType=VARCHAR} and publish_id=#{publishId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yrws.chat.entity.PublishGood" >
+    INSERT INTO publish_good (username_good,publish_id)
+    VALUES (#{usernameGood,jdbcType=VARCHAR},#{publishId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yrws.chat.entity.PublishGood" >
+    INSERT INTO publish_good
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        good_id,
+      </if>
+      <if test="usernameGood != null" >
+        username_good,
+      </if>
+      <if test="publishGood != null" >
+        publish_good,
+      </if>
+      <if test="discussGood != null" >
+        discuss_good,
+      </if>
+      <if test="floorGood != null" >
+        floor_good,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="usernameGood != null" >
+        #{usernameGood,jdbcType=VARCHAR},
+      </if>
+      <if test="publishGood != null" >
+        #{publishGood,jdbcType=VARCHAR},
+      </if>
+      <if test="discussGood != null" >
+        #{discussGood,jdbcType=VARCHAR},
+      </if>
+      <if test="floorGood != null" >
+        #{floorGood,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yrws.chat.entity.PublishGood" >
+    UPDATE publish_good
+    <set >
+      <if test="usernameGood != null" >
+        username_good = #{usernameGood,jdbcType=VARCHAR},
+      </if>
+      <if test="publishGood != null" >
+        publish_good = #{publishGood,jdbcType=VARCHAR},
+      </if>
+      <if test="discussGood != null" >
+        discuss_good = #{discussGood,jdbcType=VARCHAR},
+      </if>
+      <if test="floorGood != null" >
+        floor_good = #{floorGood,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE good_id = #{goodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yrws.chat.entity.PublishGood" >
+    UPDATE publish_good
+    SET username_good = #{usernameGood,jdbcType=VARCHAR},
+      publish_good = #{publishGood,jdbcType=VARCHAR},
+      discuss_good = #{discussGood,jdbcType=VARCHAR},
+      floor_good = #{floorGood,jdbcType=VARCHAR}
+    WHERE good_id = #{goodId,jdbcType=INTEGER}
+  </update>
+</mapper>

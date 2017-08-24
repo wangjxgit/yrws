@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrws.share.dao.PublishMapper" >
+  <resultMap id="BaseResultMap" type="com.yrws.share.entity.Publish" >
+    <id column="publish_id" property="publishId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="publish_title" property="publishTitle" jdbcType="VARCHAR" />
+    <result column="publish_comment" property="publishComment" jdbcType="VARCHAR" />
+    <result column="publish_img" property="publishImg" jdbcType="VARCHAR" />
+    <result column="publish_address" property="publishAddress" jdbcType="VARCHAR" />
+    <result column="publish_type" property="publishType" jdbcType="VARCHAR" />
+    <result column="publish_dianzan" property="publishDianzan" jdbcType="VARCHAR" />
+    <result column="publish_dashang" property="publishDashang" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    publish_id, username, publish_title, publish_comment, publish_img, publish_address, 
+    publish_type, publish_dianzan, publish_dashang, publish_date
+  </sql>
+<!--   支鹏宇 -->
+<!--   进入详情帖子界面 -->
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     publish
+    WHERE publish_id = #{publishId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 条件查找 -->
+  <select id="selectCondition" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     publish
+    WHERE
+     publish_id = #{publishId,jdbcType=INTEGER}
+  </select>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+  
+</mapper>

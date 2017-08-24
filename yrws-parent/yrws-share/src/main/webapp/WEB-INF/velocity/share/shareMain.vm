@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>粤人无数</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="${basepath}/css/reset.css">
+	<link rel="stylesheet" href="${basepath}/css/pub.css">
+	<link rel="stylesheet" href="${basepath}/css/swiper.min.css">
+	<link rel="stylesheet" href="${basepath}/css/shareMain.css">
+	<script type="text/javascript" src="${basepath}/js/suit.js"></script>
+	<script type="text/javascript" src="${basepath}/js/jquery.js"></script>
+	<script type="text/javascript">
+		function ye(reply){
+			location.href="go.html?id="+reply;
+		} 
+		function kuang(reply){
+			location.href="go.html?publishId="+reply;
+		}
+		function fenye(page){
+		        document.getElementById("page").value = page;
+		        document.forms[0].submit();
+		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">
+			<a id="header_left" href="${basepath}/index.html"><img id="prev" src="${basepath}/images/prev.png"></img></a>			
+			粤人分享
+			<a id="header_right" onclick="location.href='$!{basepath}/addShare.html'"><img id="yuyi" src="$!{basepath}/images/yuyi.png"></img></a>
+		</div>
+		<div class="swiper-container">
+			<ul class="pagination">
+				<li class="swiper-pagination-custom myPagination onShow" id="pagination1">粤人分享</li>
+				<li class="swiper-pagination-custom myPagination">我的分享</li>
+			</ul>
+			<div class="swiper-wrapper">
+				<ul class="swiper-slide">
+				<form action="shareMain.html" method="post">
+        			<input type="hidden" id="page" name="currentPage"/>
+				</form>
+				#foreach($UserShare in $list)
+					<li class="otherShare">
+						<div class="user_info">
+							<div class="info_img" ><img src="${basepath}/photos/${UserShare.img}.png" width=30px height=30px></div>
+							<div class="user_rightBox">
+								<img src="${basepath}/photos/${UserShare.sex}.png" class="sex_img" ></img>
+								<span class="user_name">${UserShare.name}</span>
+								<div class="info_time"><var>${UserShare.publishDate}</var></div>
+							</div>
+						</div>
+						<div class="content_info">
+							<div class="content_text">${UserShare.publishComment}</div>
+						</div>
+						<ul class="imgList">
+							<li class="imgs" ><img src="${basepath}/photos/${UserShare.publishImg}.png" width=99px height=99px></li>
+						</ul>
+						<div class="controll">
+						#foreach($point in $status)
+							#set($template = "upvote")
+							#if(${UserShare.publishId}==${point.publishId})
+								
+								#set($template = "btnshou")
+								#break			
+							#end
+						#end 	
+							<img src="${basepath}/images/${template}.png" class="upvote"><input type="text" style="display:none;" value="${UserShare.publishId}"><input type="text" style="display:none;" value="user1">
+							<img src="${basepath}/images/reply.png" class="reply" onclick="kuang(${UserShare.publishId})">
+							<img src="${basepath}/images/relay.png" class="relay">
+						</div>
+					</li>
+				#end
+				</ul>
+				
+				
+				<ul class="swiper-slide">
+				#foreach($UserSharebytype in $listbytype)
+					<li class="otherShare2">
+						<div class="user_info">
+							<div class="info_img"><img src="${basepath}/photos/${UserSharebytype.img}.png" width=30px height=30px></div>
+							<div class="user_rightBox">
+								<img src="${basepath}/photos/${UserSharebytype.sex}.png" class="sex_img"></img>
+								<span class="user_name">${UserSharebytype.name}</span>
+								<div class="info_time"><var>${UserSharebytype.publishDate}</var></div>
+							</div>
+						</div>
+						<div class="content_info">
+							<div class="content_text">${UserSharebytype.publishComment}</div>
+						</div>
+						<ul class="imgList">
+							<li class="imgs"><img src="${basepath}/photos/${UserSharebytype.publishImg}.png" width=99px height=99px></li>
+						</ul>
+						<div class="controll">
+						               
+						#foreach($point in $status)
+							#set($templateky = "upvote")
+							#if(${UserSharebytype.publishId}==${point.publishId})
+								<h3>${UserSharebytype.publishId}</h3>
+								<h3>${point.publishId}</h3>
+								#set($templateky = "btnshou")
+								#break			
+							#end
+						#end 
+							<img src="${basepath}/images/${templateky}.png" class="upvote" style="display:none;"><input type="text" style="display:none;" value="${UserSharebytype.publishId}"><input type="text" style="display:none;" value="user1"><input type="text" style="display:none;" value="${UserShare.publishId}">
+							<img src="${basepath}/images/reply.png" class="reply" onclick="ye(${UserSharebytype.publish_id})" style="display:none;">
+							<img src="${basepath}/images/relay.png" class="relay">
+						</div>
+					</li>
+				#end
+				</ul>
+						<!--<a onclick="fenye(1)" id="a">首页</a>
+                        <a onclick="fenye(${page.previousPage})" id="b">上一页</a>
+                        <a onclick="fenye(${page.nextPage})" id="c">下一页</a>
+                        <a onclick="fenye(${page.pageCount})" id="d">尾页</a>-->
+			</div>
+		</div>
+	</div>
+	<script src="${basepath}/js/jquery.js"></script>
+	<script type="text/javascript" src="${basepath}/js/swiper.min.js"></script>
+	<script type="text/javascript" src="${basepath}/js/shareMain.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(".swiper-slide").eq(0).find(".upvote").click(function(){
+				var k = $(this).attr('class');
+				var y = $(this).attr('src');
+				$.ajax({  
+					  url: "addGood.do",
+					  type:'post',  
+					  dataType:"json",  
+					  data:{  
+					    	"id" : $(this).next().val(),"name":$(this).next().next().val()
+					  },
+					  success:function(data){
+					  	if(y=="http://localhost:8084/images/upvote.png"){
+					  		$(".upvote").eq(data-1).attr('src','http://localhost:8084/images/btnshou.png')
+					  	}else{
+					  		$(".upvote").eq(data-1).attr('src','http://localhost:8084/images/upvote.png')
+					  	}
+					    
+					  },
+					  error:function(e){
+					  	console.log(e);
+					  }  
+				})  
+			})
+			
+			
+			/*$(".swiper-slide").eq(1).find(".upvote").click(function(){
+				var x = $(this).attr('class');
+				var y = $(this).attr('src');
+				$.ajax({  
+					  url: "addUser.do",
+					  type:'post',  
+					  dataType:"json",  
+					  data:{  
+					    	"id" : $(this).next().val(),"name":$(this).next().next().val()
+					  },
+					  success:function(data){
+					  	alert(data);
+					  	alert(y);
+					  	if(y=="http://localhost:8084/images/upvote.png"){
+					  		$(".upvote").eq(data).attr('src','http://localhost:8084/images/btnshou.png')
+					  	}else{
+					  		$(".upvote").eq(data).attr('src','http://localhost:8084/images/upvote.png')
+					  	}
+					  },
+					  error:function(e){
+					  	console.log(e);
+					  }  
+				})  
+				
+			})	*/	
+		})
+	</script>
+</body>
+</html>

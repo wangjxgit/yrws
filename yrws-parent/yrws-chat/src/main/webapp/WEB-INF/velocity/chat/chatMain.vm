@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>粤人无数</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="${basepath}/css/reset.css">
+	<link rel="stylesheet" href="${basepath}/css/pub.css">
+	<link rel="stylesheet" href="${basepath}/css/swiper.min.css">
+	<link rel="stylesheet" href="${basepath}/css/chatMain.css">
+	<script type="text/javascript" src="${basepath}/js/suit.js"></script>
+	<script type="text/javascript" src="${basepath}/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="top">
+			<img id="prev" src="${basepath}/images/prev.png"></img>
+			<div id="top_text">聊天吹水</div>
+			<img id="add" src="${basepath}/images/yuyi.png" alt="" onclick="location.href='$!{basepath}/add.html'">
+			#*<div id="header_right" onclick="location.href='$!{basepath}/add.html'"><img id="yuyi" src="$!{basepath}/images/yuyi.png"></img></div>*#
+		</div>
+		<div id="content">
+			<div class="banner"></div>
+			<div class="swiper-container">
+				<ul class="pagination">
+					<li class="swiper-pagination-custom myPagination onShow">最新</li>
+					<li class="swiper-pagination-custom myPagination">最火</li>
+					<li class="swiper-pagination-custom myPagination">最热</li>
+				</ul>
+				<div class="swiper-wrapper">
+					<ul class="swiper-slide">
+					#foreach($element in $list)
+						<li class="new_li con_info">
+							<div class="user_info">
+								<div class="info_img"><img src="${basepath}/uplod/${element.userimg}" class="info_img"></img></div>
+								<div class="user_rightBox">
+								#if(${element.sex}=="女")
+									<img src="${basepath}/images/girl.png" class="sex_img"></img>
+								#else
+								    <img src="${basepath}/images/sex.png" class="sex_img"></img>
+								#end
+									<span class="user_name">${element.name}</span>
+									<div class="info_time"><var>${element.time}</var></div>
+								</div>
+							</div>
+							<div class="content_info">
+								<a href="${basepath}/go.html?publishId=${element.publishId}">
+									<div class="content_img"><img src="${basepath}/uplod/${element.publishimg}" class="content_img"></div>
+									<div class="content_rightBox">
+										<h1>${element.title}</h1>
+										<h2>${element.comment}</h2>
+									</div>
+								</a>
+									<div class="controll" >
+									#if(${element.good}==false)
+										 <div class="upvote" style="background:url(${basepath}/images/upvote.png) center center no-repeat;background-size:0.24rem 0.24rem">
+										   <input type="hidden" value="${element.publishId},${element.name}"/>
+										  <!--  <input type="hidden" value="${element.name}"/> -->
+										 </div> 
+										    <input type="hidden" value="0"/>
+									#else
+									 <div class="upvote" style="background:url(${basepath}/images/AVQ@VUSZD4517[ORS[8I1KM.png) center center no-repeat;background-size:0.24rem 0.24rem">
+										   <input type="hidden" value="${element.publishId},${element.name}"/>
+										  <!--  <input type="hidden" value="${element.name}"/> -->
+										 </div> 
+										    <input type="hidden" value="1"/>	
+									#end    
+										<!-- <img class="upvote" src="../../images/upvote.png" alt="">
+										<img class="upvote2" src="../../images/AVQ@VUSZD4517[ORS[8I1KM.png" alt=""> -->
+										<img class="reply" src="${basepath}/images/reply.png" alt="">
+									</div>
+							</div>
+						</li>
+						 #end
+					</ul>
+					<ul class="swiper-slide">
+					   #foreach($elements in $listgood)
+						<li class="fire_li con_info">
+							<div class="user_info">
+								<div class="info_img"><img src="${basepath}/uplod/${elements.userimg}" class="info_img"></img></div>
+								<div class="user_rightBox">
+									#if(${elements.sex}=="女")
+									<img src="${basepath}/images/girl.png" class="sex_img"></img>
+								    #else
+								    <img src="${basepath}/images/sex.png" class="sex_img"></img>
+								    #end
+									<span class="user_name">${elements.name}</span>
+									<div class="info_time"><var>${elements.time}</var></div>
+								</div>
+							</div>
+							<div class="content_info">
+								<a href="${basepath}/chatInfo.html">
+									<div class="content_img"><img src="${basepath}/uplod/${elements.publishimg}" class="content_img"></div>
+									<div class="content_rightBox">
+										<h1>${elements.title}</h1>
+										<h2>${elements.comment}</h2>
+									</div>
+								</a>
+									<div class="controll">
+
+										#if(${elements.good}==false)
+										 <div class="upvote" style="background:url(${basepath}/images/upvote.png) center center no-repeat;background-size:0.24rem 0.24rem">
+										   <input type="hidden" value="${elements.publishId},${elements.name}"/>
+										  <!--  <input type="hidden" value="${element.name}"/> -->
+										 </div> 
+										    <input type="hidden" value="0"/>
+									#else
+									 <div class="upvote" style="background:url(${basepath}/images/AVQ@VUSZD4517[ORS[8I1KM.png) center center no-repeat;background-size:0.24rem 0.24rem">
+										   <input type="hidden" value="${elements.publishId},${elements.name}"/>
+										  <!--  <input type="hidden" value="${element.name}"/> -->
+										 </div> 
+										    <input type="hidden" value="1"/>	
+									#end    
+										<!-- <img class="upvote" src="../../images/upvote.png" alt="">
+										<img class="upvote2" src="../../images/AVQ@VUSZD4517[ORS[8I1KM.png" alt=""> -->
+										<img class="reply" src="${basepath}/images/reply.png" alt="">
+									</div>
+							</div>
+						</li>
+						 #end
+					</ul>
+					<ul class="swiper-slide">
+					  #foreach($elementd in $listdiscuss)
+						<li class="hot_li con_info">
+							<div class="user_info">
+								<div class="info_img"><img src="${basepath}/uplod/${elementd.userimg}" class="info_img"></div>
+								<div class="user_rightBox">
+									#if(${elementd.sex}=="女")
+									<img src="${basepath}/images/girl.png" class="sex_img"></img>
+								    #else
+								    <img src="${basepath}/images/sex.png" class="sex_img"></img>
+								    #end
+									<span class="user_name">${elementd.name}</span>
+									<div class="info_time"><var>${elementd.time}</var></div>
+								</div>
+							</div>
+							<div class="content_info">
+								<a href="${basepath}/chatInfo.html">
+									<div class="content_img"><img src="${basepath}/uplod/${elementd.publishimg}" class="content_img"></div>
+									<div class="content_rightBox">
+										<h1>${elementd.title}</h1>
+										<h2>${elementd.comment}</h2>
+									</div>
+								</a>
+									<div class="controll">
+										#if(${elementd.good}==false)
+										 <div class="upvote" style="background:url(${basepath}/images/upvote.png) center center no-repeat;background-size:0.24rem 0.24rem">
+										   <input type="hidden" value="${elementd.publishId},${elementd.name}"/>
+										  <!--  <input type="hidden" value="${element.name}"/> -->
+										 </div> 
+										    <input type="hidden" value="0"/>
+										#else
+										 <div class="upvote" style="background:url(${basepath}/images/AVQ@VUSZD4517[ORS[8I1KM.png) center center no-repeat;background-size:0.24rem 0.24rem">
+											   <input type="hidden" value="${elementd.publishId},${elementd.name}"/>
+											  <!--  <input type="hidden" value="${element.name}"/> -->
+											 </div> 
+											    <input type="hidden" value="1"/>	
+										#end    
+										<!-- <img class="upvote" src="../../images/upvote.png" alt="">
+										<img class="upvote2" src="../../images/AVQ@VUSZD4517[ORS[8I1KM.png" alt=""> -->
+										<img class="reply" src="${basepath}/images/reply.png" alt="">
+									</div>
+							</div>
+						</li>
+						 #end
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="${basepath}/js/swiper.min.js"></script>
+	<script>
+	      //var a=0;
+		$('.upvote').on('click',function(){
+			// alert($(this).next().val());
+			 // $(this).removeClass()
+			if ($(this).next().val()==0) {
+      //          $(this).removeClass()
+			   // $(this).addClass('upvote2')
+			 //   alert($(this).children('input').val());
+			    $(this).css("background","url(../../images/AVQ@VUSZD4517[ORS[8I1KM.png) center center no-repeat");
+			    $(this).css("background-size","0.24rem 0.24rem");
+			   function ajax(username){
+				$.ajax({
+			   url:"chatajax.do",
+			   type:"post",
+			   data:{
+				"username":username
+			   },
+			   dataType:"json",
+				success:function(data){
+	                 alert(data.username);
+	               
+				},
+				error:function(){
+					 alert("错了哦");
+				}
+		     });
+		    }
+		     ajax($(this).children('input').val());
+			   $(this).next().val("1");
+			}
+			else{
+                // $(this).removeClass()
+			   // $(this).addClass('upvote')
+			    $(this).css("background","url(../../images/upvote.png) center center no-repeat");
+			    $(this).css("background-size","0.24rem 0.24rem");
+			   
+			  // alert($(this).children('input').val());
+			   function ajax1(username){
+				$.ajax({
+			   url:"dchatajax.do",
+			   type:"post",
+			   data:{
+				"username":username
+			   },
+			   dataType:"json",
+			success:function(data){
+                  alert(data.username);
+			},
+			error:function(){
+				// alert("错了哦");
+			}
+		     });
+		    }
+		     ajax1($(this).children('input').val());
+		     $(this).next().val("0");
+			}
+		
+		})
+       	 
+		var mySwiper = new Swiper ('.swiper-container', {
+			direction: 'horizontal',
+			pagination: '.pagination',
+			paginationType : 'custom'
+		});
+		var p=document.getElementsByClassName('myPagination');
+		var slide=document.getElementsByClassName('swiper-slide');
+		var wrapper=document.getElementsByClassName('swiper-wrapper')[0];
+		for(var i=0;i<p.length;i++){
+			p[i].index=i;
+			p[i].addEventListener('touchstart',function(e){
+				mySwiper.slideTo(this.index,300,false);
+			})
+		}
+		var add=document.getElementById('add');
+		add.addEventListener('touchend',function(){
+			self.location='${basepath}/add.html';
+		})
+		var prev=document.getElementById('prev');
+		prev.addEventListener('touchend',function(){
+			self.location='${basepath}/index.html';
+		})
+		for(var i=0;i<p.length;i++){
+			p[i].addEventListener('touchstart',function(){
+				for(var j=0;j<p.length;j++){
+					p[j].classList.remove('onShow');
+				}
+				this.classList.add('onShow');
+			})
+		}
+		wrapper.addEventListener('touchend',function(e){
+			for(var i=0;i<p.length;i++){
+				p[i].classList.remove('onShow');
+			}
+			var timr=setTimeout(function(){
+				input=wrapper.style.transform;
+				if(!input){
+					input=0;
+				}else{
+					input=input.match(/\((\S*)/)[1];
+					input=input.match(/^.*?p/);
+					input=input[0].slice(0,-1);
+					input=Math.abs(input);
+					input=Math.round(input/window.screen.width);
+				}
+				p[input].classList.add('onShow');
+				clearTimeout(timr);
+			})
+		})
+
+		var con_info=document.getElementsByClassName('con_info');
+		var yX=0;
+		var oX=0;
+		var yY=0;
+		var oY=0;
+		for(var i=0;i<con_info.length;i++){
+			var f=1;
+			con_info[i].addEventListener('touchend',function(e){
+				oX=e.changedTouches[0].clientX;
+				oY=e.changedTouches[0].clientY;
+				/*if(!f){
+					return false;
+				}else{
+					self.location='./chatInfo.html';
+				}*/
+			})
+			con_info[i].addEventListener('touchmove',function(e){
+				if(Math.abs(yX-oX)>11||Math.abs(yY-oY)>11){
+					f=0;
+				}else{
+					f=1;
+				};
+			})
+			con_info[i].addEventListener('touchstart',function(e){
+				yX=e.changedTouches[0].clientX;
+				yY=e.changedTouches[0].clientY;
+				f=1;
+			})
+
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrws.chat.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.yrws.chat.entity.User" >
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="integral" property="integral" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    username,img,sex,credit,balance,name,integral,tel
+  </sql>
+<!-- 支鹏宇 -->
+  <!-- 主用户信息查询 -->
+  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="com.yrws.chat.entity.User" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+     user
+    WHERE
+     username = #{username,jdbcType=VARCHAR}
+  </select>
+<!-- 联查 -->  
+  <select id="selectAll" parameterType="java.lang.Integer" resultType="com.yrws.chat.view.UserPublish" >
+    SELECT 
+    user.username username,user.img img,user.sex sex,user.name name,publish.publish_id publishId,publish.publish_title publishTitle,publish.publish_comment publishComment,publish.publish_img publishImg,publish.publish_address publishAddress,publish.publish_type publishType,publish.publish_date publishDate
+    FROM
+     user left join publish
+    ON
+     user.username = publish.username 
+    WHERE
+     publish.publish_id=#{publishId,jdbcType=INTEGER}
+  </select>
+  
+<!--  评论列表联查 -->
+	<select id="selectCondition" parameterType="java.lang.Integer" resultType="com.yrws.chat.view.UserDiscuss" >
+    SELECT 
+    user.username username,user.img img,user.sex sex,user.name name,discuss.discuss_id discussId,discuss.publish_id publishId,discuss.discussby_username discussbyUsername,discuss.discuss_comment discussComment,discuss.discuss_floor discussFloor,discuss.discuss_date discussDate
+    FROM
+     user left join discuss
+    ON
+     user.username = discuss.username 
+    WHERE
+     discuss.publish_id=#{publishId,jdbcType=INTEGER}
+    ORDER BY 
+  	 discuss_floor 
+  	DESC
+  </select>
+  <!-- +++++++++++++++++++++++支鹏宇++++++++++++++++++++++++++++++++ -->
+  
+  
+  
+  
+  
+  <insert id="insert" parameterType="com.yrws.chat.entity.User" >
+    INSERT INTO user (username, img, sex,credit, balance, name, integral, tel)
+    VALUES
+     (#{username,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{credit,jdbcType=VARCHAR}, #{balance,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{integral,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yrws.chat.entity.User" >
+    INSERT INTO
+     user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

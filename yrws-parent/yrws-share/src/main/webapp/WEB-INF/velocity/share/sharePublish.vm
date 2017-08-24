@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>粤人无数</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="$!{basepath}/css/reset.css">
+	<link rel="stylesheet" href="$!{basepath}/css/pub.css">
+	<link rel="stylesheet" href="$!{basepath}/css/sharePublish.css">
+	<script type="text/javascript" src="$!{basepath}/js/suit.js"></script>
+	<style>
+		#content_import{
+			margin-top: 0.88rem;
+			background-color: #fff;
+			overflow: hidden;
+		}
+		#content_text{
+			height:3rem;
+			text-indent:2em;
+		}
+		#picture{
+			width:100%;
+			float: left;
+			margin-bottom: 0.21rem;
+		}
+		#picture .add{
+			width:1.1rem;
+			height:1.1rem;
+			float: left;
+			margin-left: 0.21rem;
+			margin-top: 0.21rem;
+			border:0.01rem #797979 solid;
+			background-image: url($!{basepath}/images/add2.png);
+			background-size:1.09rem 1.09rem;
+			position: relative;
+		}
+		.add .file_input{
+			width:1.1rem;
+			height:1.1rem;
+			position: absolute;
+			left:0.01rem;
+			top:0.01rem;
+			opacity:0;
+			z-index: 999;
+		}
+		.add .rrr{
+			width:1.1rem;
+			height:1.1rem;
+			position: absolute;
+			left:0.01rem;
+			top:0.01rem;
+		}
+		.add .rrr img{
+			width:1.1rem;
+			height:1.1rem;
+		}
+		#picture span{
+			float: left;
+			margin-top: 0.99rem;
+			font-size: 0.24rem;
+			font-family: PingFang;
+			color:#e4e4e4;
+			margin-left: 0.1rem;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">
+			<a id="header_left" onclick="location.href='$!{basepath}/shareMain.html'"><img id="prev" src="$!{basepath}/images/prev.png"></img></a>			
+			粤人分享
+		</div>
+		<form action="addPubLishShare.html" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="publishType" value="share" />
+		<input type="hidden" name="username" value="李四" />
+		<div id="content_import">	
+			<textarea rows="4" cols="48" placeholder="说点什么吧..." id="content_text" name="publishComment" onkeyup="check()"></textarea>			
+			<div id="picture">
+				<div class="add">
+					<input type="file" name="files" class="file_input" capture="camera" multiple/>
+	                <div class="rrr"></div>
+				</div>
+			<span>最多添加9张图片</span>
+			</div>
+		</div>
+		<div id="loc">地点</div>
+		<input type="submit" value="发布" id="publishBTN" disabled/>
+	</div>
+	</form>
+<script src="$!{basepath}/js/jquery.js"></script>
+<script>
+	// 添加图片的
+	picture();
+	function picture(){
+		//获取图片路劲的方法，兼容多种浏览器，通过createObjectURL实现
+		var aaa = document.getElementsByClassName("rrr"); //获取显示图片的div元素
+		var input = document.getElementsByClassName("file_input");
+		var count=0;
+		$( "#picture" ).on( "click", ".file_input", function() {
+			if (count<9) {
+				var flag=true;
+			 	for (var v = 0; v < input.length; v++) {
+			 		if (input[v]==this) {
+					 // 获取选择图片的input元素
+				      // 这边是判断本浏览器是否支持这个API。
+						if(typeof FileReader==='undefined'){ 
+						    aaa[v].innerHTML = "抱歉，你的浏览器不支持 FileReader"; 
+						    input[v].setAttribute('disabled','disabled'); 
+						}else{ 
+							var bbb = v;
+						    input[v].addEventListener('change',readFile,false); 
+						    //如果支持就监听改变事件，一旦改变了就运行readFile函数。
+						} 
+						function readFile(){ 
+						    var file = this.files[0]; //获取file对象
+						    //判断file的类型是不是图片类型。
+						    if(!/image\/\w+/.test(file.type)){ 
+						        alert("文件必须为图片！"); 
+						        return false; 
+						    } 
+						    if (bbb==input.length-1) {
+							    if (count<8) {
+								    if (flag) {
+								   		$(this).parent().after('<div class="add"><input type="file" class="file_input" capture="photo" name="files"><div class="rrr"></div></div>');
+								   		count++;
+								   		flag=false;
+							   		};
+							   	};
+						   	};
+						    var reader = new FileReader(); //声明一个FileReader实例
+						    reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+						    //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+						    reader.onload = function(e){ 
+						        aaa[bbb].innerHTML = '<img src="'+this.result+'" alt=""/>' ;
+							}
+						}			
+					}
+				}
+			}
+		})
+
+	}
+
+//发布
+	var content_text=document.getElementById('content_text');
+	content_text.oninput=function(){
+		if ($("textarea").val()=="") {
+			$('#publishBTN').css('background-color','#999')
+			$('#publishBTN').attr('disabled',"true");
+		}else{
+			$('#publishBTN').css('background-color',' #94e5ec')
+			$('#publishBTN').removeAttr("disabled");
+		}
+	}
+//限制字数
+		function check() { 
+		var regC = /[^ -~]+/g; 
+		var regE = /\D+/g; 
+		var str = content_text.value; 
+		if (regC.test(str)){ 
+		    content_text.value = content_text.value.substr(0,150); 
+		} 
+		
+		if(regE.test(str)){ 
+		    content_text.value = content_text.value.substr(0,160); 
+		} 
+		}
+</script>
+</body>
+</html>

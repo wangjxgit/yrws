@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrws.chat.dao.DiscussMapper" >
+  <resultMap id="BaseResultMap" type="com.yrws.chat.entity.Discuss" >
+    <id column="discuss_id" property="discussId" jdbcType="INTEGER" />
+    <result column="publish_id" property="publishId" jdbcType="INTEGER" />
+    <result column="username" property="Username" jdbcType="VARCHAR" />
+    <result column="discussby_username" property="discussbyUsername" jdbcType="VARCHAR" />
+    <result column="discuss_comment" property="discussComment" jdbcType="VARCHAR" />
+    <result column="discuss_floor" property="discussFloor" jdbcType="VARCHAR" />
+    <result column="discuss_date" property="discussDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    discuss_id, publish_id, username, discussby_username, discuss_comment, discuss_floor, 
+    discuss_date
+  </sql>
+  <!--   支鹏宇 -->
+
+<select id="selectSelectFlooer" resultType="java.lang.String" >
+	SELECT
+	 count(discuss_id)
+	FROM
+	 discuss
+	WHERE
+	 publish_id = #{publishId};
+</select>
+
+<select id="selectComment" resultMap="BaseResultMap">
+  	SELECT 
+  	*
+  	FROM
+  	discuss
+  	WHERE
+  	publish_id = #{publishId} AND discuss_floor = #{discussFloor} 
+  	
+</select>
+
+<!-- 插入方法 -->
+<insert id="insert" parameterType="com.yrws.chat.entity.Discuss">
+	INSERT INTO
+	 discuss(publish_id, username, discussby_username, discuss_comment,  discuss_floor, discuss_date)
+    VALUES
+    (#{publishId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{discussbyUsername,jdbcType=VARCHAR}, #{discussComment,jdbcType=VARCHAR}, 
+      #{discussFloor,jdbcType=VARCHAR},#{discussDate,jdbcType=TIMESTAMP})
+</insert>
+
+<!-- 添加评论 -->
+  <insert id="addDiscuss" parameterType="com.yrws.chat.entity.Discuss" >
+    INSERT INTO
+     discuss(publish_id, username, discussby_username, discuss_comment,  discuss_floor, discuss_date)
+    VALUES
+    (#{publishId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{discussbyUsername,jdbcType=VARCHAR}, #{discussComment,jdbcType=VARCHAR}, 
+      #{discussFloor,jdbcType=VARCHAR},#{discussDate,jdbcType=TIMESTAMP})
+  </insert>
+  <!-- ++++++++++++++++zhi+++++++++++++++++++++ -->
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from discuss
+    where discuss_id = #{discussId,jdbcType=INTEGER}
+  </select>
+  <select id="selectDiscussCount" resultType="com.yrws.chat.entity.Discuss" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from discuss
+    where publish_id = #{publishId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from discuss
+    where discuss_id = #{discussId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yrws.chat.entity.Discuss" >
+    insert into discuss (discuss_id, publish_id, username, 
+      discussby_username, discuss_comment, discuss_floor, 
+      discuss_date)
+    values (#{discussId,jdbcType=INTEGER}, #{publishId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{discussbyUsername,jdbcType=VARCHAR}, #{discussComment,jdbcType=VARCHAR}, #{discussFloor,jdbcType=VARCHAR}, 
+      #{discussDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yrws.chat.entity.Discuss" >
+    insert into discuss
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="discussId != null" >
+        discuss_id,
+      </if>
+      <if test="publishId != null" >
+        publish_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="discussbyUsername != null" >
+        discussby_username,
+      </if>
+      <if test="discussComment != null" >
+        discuss_comment,
+      </if>
+      <if test="discussFloor != null" >
+        discuss_floor,
+      </if>
+      <if test="discussDate != null" >
+        discuss_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="discussId != null" >
+        #{discussId,jdbcType=INTEGER},
+      </if>
+      <if test="publishId != null" >
+        #{publishId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="discussbyUsername != null" >
+        #{discussbyUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="discussComment != null" >
+        #{discussComment,jdbcType=VARCHAR},
+      </if>
+      <if test="discussFloor != null" >
+        #{discussFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="discussDate != null" >
+        #{discussDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yrws.chat.entity.Discuss" >
+    update discuss
+    <set >
+      <if test="publishId != null" >
+        publish_id = #{publishId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="discussbyUsername != null" >
+        discussby_username = #{discussbyUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="discussComment != null" >
+        discuss_comment = #{discussComment,jdbcType=VARCHAR},
+      </if>
+      <if test="discussFloor != null" >
+        discuss_floor = #{discussFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="discussDate != null" >
+        discuss_date = #{discussDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where discuss_id = #{discussId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yrws.chat.entity.Discuss" >
+    update discuss
+    set publish_id = #{publishId,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      discussby_username = #{discussbyUsername,jdbcType=VARCHAR},
+      discuss_comment = #{discussComment,jdbcType=VARCHAR},
+      discuss_floor = #{discussFloor,jdbcType=VARCHAR},
+      discuss_date = #{discussDate,jdbcType=TIMESTAMP}
+    where discuss_id = #{discussId,jdbcType=INTEGER}
+  </update>
+</mapper>

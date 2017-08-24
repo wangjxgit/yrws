@@ -1,0 +1,283 @@
+
+		#wrap{
+			background-color: #f0efed;
+		}
+		#top{
+			width: 7.3rem;
+			height: 0.88rem;
+			background-color: #F8C5D3;
+			color: #FFFFFF;
+			padding: 0 0.2rem;
+			padding-right: 0;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 999;
+		}
+		#top *{
+			float: left;
+		}
+		#prev{
+			margin-top: 0.25rem;
+			width: 0.28rem;
+			height: 0.38rem;
+			margin-right: 2.94rem;
+		}
+		#top_text{
+			font-size: 0.34rem;
+			line-height: 0.88rem;
+			margin-right: 2.5rem;
+		}
+		#content{
+			padding-top: 0.88rem;
+			padding-bottom: 0.88rem;
+		}
+		#movie_banner{
+			height: 2.36rem;
+		}
+		.person_info{
+			float: left;
+			margin-right: 0.32rem;
+		}
+		.info_img{
+			width: 1.26rem;
+			height: 1.26rem;
+			position: relative;
+			background-image: url("../images/banner.png");
+			background-size: cover;
+			border-radius: 50%;
+		}
+		.info_bot{
+			margin-top: 0.3rem;
+			margin-bottom: 0.23rem;
+			overflow: hidden;
+			padding-left: 0.11rem;
+		}
+		.info_sex{
+			background-image: url("../images/sex.png");
+			width: 0.12rem;
+			height: 0.17rem;
+			background-size: cover;
+			float: left;
+			margin-top: 0.05rem;
+			margin-right: 0.08rem;
+		}
+		.info_name{
+			font-size: 0.18rem;
+			color: #000000;
+			float: left;
+		}
+		.detail_info{
+			float: left;
+		}
+		.detail_info_list{
+			margin-left: -0.12rem;
+		}
+		.detail_info_list li{
+			background: url("../images/listStyle.png") no-repeat left center;
+			background-size: 0.08rem 0.08rem;
+			padding-left: 0.12rem;
+		}
+		.detail_info h1{
+			font-size: 0.24rem;
+			color: #000000;
+			margin-bottom: 0.34rem;
+		}
+		.detail_info_first{
+			font-size: 0.18rem;
+			color: #6e6d6b;
+			margin-bottom: 0.21rem;
+		}
+		.detail_info_first span:nth-of-type(1){
+			color: black;
+		}
+		.detail_info_second{
+			font-size: 0.18rem;
+			color: #6e6d6b;
+			margin-bottom: 0.21rem;
+		}
+		.detail_info_third{
+			font-size: 0.18rem;
+			color: #6e6d6b;
+		}
+		.info_top{
+			position: relative;
+			overflow: hidden;
+			display: inline-block;
+			background-color: white;
+			width: 7rem;
+			padding: 0.25rem 0.2rem 0 0.3rem;
+		}
+		.info_bottom{
+			border-top: 0.02rem solid #F0F0ED;
+			width: 100%;
+			height: 0.5rem;
+			font-size: 0.18rem;
+			color: #bfbfbe;
+			line-height: 0.5rem;
+		}
+		.mainTop{
+			overflow: hidden;
+		}
+		#tel{
+			position: absolute;
+			right: 0.5rem;
+			top: 0.75rem;
+			background-image: url('../images/tel.png');
+			width: 0.52rem;
+			height: 0.52rem;
+			border-radius: 50%;
+			background-size: cover;
+		}
+		.controll{
+			text-align: right;
+			margin-bottom: 0.17rem;
+		}
+		.controll img{
+			width: 0.24rem;
+			height: 0.24rem;
+		}
+		.upvote{
+			margin-right: 0.23rem;
+		}
+		.main_talk{
+			max-width: 7.5rem;
+			margin-top: 0.22rem;
+			font-size: 0.2rem;
+			text-align: left;
+			height: 0.8rem;
+			line-height: 0.8rem;
+			background-color: white;
+			color: #6e6d6b;
+			padding-left: 0.2rem;
+		}
+		#detail_adress{
+			margin-right: 0.25rem;
+		}
+		#detail_num{
+			margin-left: 0.28rem;
+		}
+		#detail_date{
+			margin-right: 0.28rem;
+		}
+		#detail_time{
+			margin-right: 0.26rem;
+		}
+		.subBtn{
+			width: 3.2rem;
+			height: 0.63rem;
+			background-color: #f8c3d2;
+			font-size: 0.36rem;
+			color: white;
+			border-radius: 0.16rem;
+			text-align: center;
+			line-height: 0.63rem;
+			margin: 0 auto;
+			margin-top: 0.29rem;
+		}
+		.swiper-container{
+			margin-top: 0.21rem;
+		}
+		.pagination{
+			height: 0.43rem;
+			background-color: white;
+			padding-top: 0.07rem;
+		}
+		.myPagination{
+			height: 0.36rem;
+			font-size: 0.19rem;
+			width: 1.86rem;
+			line-height: 0.36rem;
+			float: left;
+			text-align: center;
+			border-right: 1px solid #f0efed;
+		}
+		#bRedPack{
+			border-right: none;
+		}
+		.replyImg{
+			background-image: url(../images/banner.png);
+			border-radius: 50%;
+			width: 1.06rem;
+			height: 1.06rem;
+			float: left;
+			margin-right: 0.39rem;
+		}
+		.swiper-wrapper{
+			background-color: white;
+			width: 100%;
+			margin-top: 0.01rem;
+		}
+		.replyChild{
+			overflow: hidden;
+			padding: 0.17rem 0.21rem 0 0.42rem;
+		}
+		.rightBox{
+			float: left;
+			width: 5.42rem;
+			position: relative;
+			border-bottom: 1px solid #f0efed;
+		}
+		.user_info{
+			overflow: hidden;
+		}
+		.user_name{
+			font-size: 0.24rem;
+			color: #959594;
+			float: left;
+			margin-right: 0.08rem;
+		}
+		.sex{
+			margin-top: 0.03rem;
+			float: left;
+			width: 0.14rem;
+			height: 0.23rem;
+		}
+		.main_content{
+			margin-top: 0.23rem;
+			font-size: 0.24rem;
+			color: black;
+		}
+		.main_info{
+			position: absolute;
+			bottom: 0.18rem;
+			left: 0;
+			font-size: 0.14rem;
+			color: #959594;
+			margin-top: 0.3rem;
+		}
+		.bReply .controll{
+			margin-top: 0.2rem;
+			margin-bottom: 0.18rem;
+		}
+		#bottom{
+			height: 0.88rem;
+			position: fixed;
+			bottom: 0;
+			z-index: 999;
+			width: 100%;
+			background-color: #f0efed;
+			overflow: hidden;
+		}
+		#bottom *{
+			float: left;
+		}
+		#replyText{
+			width: 6.25rem;
+			height: 0.5rem;
+			border-radius: 0.08rem;
+			text-align: center;
+			margin-left: 0.32rem;
+			margin-top: 0.2rem;
+			font-size: 0.2rem;
+			color: #959594;
+		}
+		#tip{
+			width: 0.32rem;
+			height: 0.42rem;
+			margin-top: 0.25rem;
+			margin-left: 0.32rem;
+		}
+		.onShow{
+			color: #f8c3d2;
+		}

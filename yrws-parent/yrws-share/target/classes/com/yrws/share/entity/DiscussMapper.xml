@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrws.share.dao.DiscussMapper" >
+  <resultMap id="BaseResultMap" type="com.yrws.share.entity.Discuss" >
+    <id column="discuss_id" property="discussId" jdbcType="INTEGER" />
+    <result column="publish_id" property="publishId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="discussby_username" property="discussbyUsername" jdbcType="VARCHAR" />
+    <result column="discuss_comment" property="discussComment" jdbcType="VARCHAR" />
+    <result column="discuss_floor" property="discussFloor" jdbcType="VARCHAR" />
+    <result column="discussby_floor" property="discussbyFloor" jdbcType="VARCHAR" />
+    <result column="discuss_date" property="discussDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    discuss_id, publish_id, username, discussby_username, discuss_comment, discuss_floor, 
+     discussby_floor, discuss_date
+  </sql>
+<!--   支鹏宇 -->
+
+<select id="selectSelectFlooer" resultType="java.lang.String" >
+	SELECT
+	 count(discuss_id)
+	FROM
+	 discuss
+	WHERE
+	 publish_id = #{publishId};
+</select>
+
+<select id="selectComment" resultMap="BaseResultMap">
+  	SELECT *
+  	FROM
+  	 discuss
+  	WHERE
+  	 publish_id = #{publishId} AND discuss_floor = #{discussFloor}
+</select>
+
+<!-- 插入方法 -->
+<insert id="insert" parameterType="com.yrws.share.entity.Discuss">
+	INSERT INTO
+	 discuss(publish_id, username, 
+      discussby_username, discuss_comment,  discuss_floor, discuss_date)
+    VALUES
+    (#{publishId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{discussbyUsername,jdbcType=VARCHAR}, #{discussComment,jdbcType=VARCHAR}, 
+      #{discussFloor,jdbcType=VARCHAR},#{discussDate,jdbcType=TIMESTAMP})
+</insert>
+
+<!-- 添加评论 -->
+  <insert id="addDiscuss" parameterType="com.yrws.share.entity.Discuss" >
+    INSERT INTO
+     discuss(publish_id, username, discussby_username, discuss_comment,  discuss_floor, discuss_date)
+    VALUES
+    (#{publishId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{discussbyUsername,jdbcType=VARCHAR}, #{discussComment,jdbcType=VARCHAR}, 
+      #{discussFloor,jdbcType=VARCHAR},#{discussDate,jdbcType=TIMESTAMP})
+  </insert>
+  
+  
+  
+
+</mapper>
